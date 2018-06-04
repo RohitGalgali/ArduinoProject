@@ -17,4 +17,8 @@ app.get('/LightOff', function(req, res){
   res.send("LightOff");
 });
 
+app.get('/', function(req, res){
+  res.sendFile("../Client/LightControl.html");
+});
+
 app.listen(3000);
