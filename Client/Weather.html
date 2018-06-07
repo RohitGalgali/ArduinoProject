@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+    //public const 
+    //private const string CurrentUrl = "http://api.openweathermap.org/data/2.5/weather?" + "q=pune&mode=xml&units=imperial&APPID=" + ApiKey;    
+
+    <p id="para"></p>
+</body>
+<script>
+    
+    var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "http://192.168.80.24:3000/GetWeather", false);
+        // xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send();
+</script>
+</html>
+
+
+

@@ -7,9 +7,9 @@
 
 <button type="submit" onclick="LightOn()">LigtOn</button>
 <button type="submit" onclick="LightOff()">LightOff</button>
-
+<button type="submit" onclick="ShowWeather()">Show Weather</button>
 <p id="demo"></p>
-
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
     function LightOn() {
         var xhttp = new XMLHttpRequest();
@@ -23,6 +23,19 @@
         xhttp.open("GET", "http://192.168.80.24:3000/LightOff", false);
         // xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send();
+    }
+
+    function ShowWeather(){
+        // var xhttp = new XMLHttpRequest();
+        // xhttp.open("GET", "http://192.168.80.24:3000/ShowWeather", false);
+        // //xhttp.setRequestHeader("Content-type", "application/json");
+        // xhttp.send();
+        // document.getElementById("demo").innerHTML = xhttp.response;
+        $.get( "http://192.168.80.24:3000/ShowWeather", function( data ) {
+        var xmlDoc = $.parseXML(data);
+        $( "#demo" ).html( xmlDoc );
+        alert( "Load was performed." );
+});
     }
     </script>
 </body>
