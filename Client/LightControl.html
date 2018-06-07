@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<h2>The Arduino Project</h2>
-<p>By ME :P</p>
+    <h2>The Arduino Project</h2>
+    <p>By ME :P</p>
 
-<button type="submit" onclick="LightOn()">LigtOn</button>
-<button type="submit" onclick="LightOff()">LightOff</button>
-<button type="submit" onclick="ShowWeather()">Show Weather</button>
-<p id="demo"></p>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script>
-    function LightOn() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://192.168.80.24:3000/LightOn", false);
-        // xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send();
-    }
-  
-    function LightOff() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://192.168.80.24:3000/LightOff", false);
-        // xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send();
-    }
+    <button type="submit" onclick="LightOn()">LigtOn</button>
+    <button type="submit" onclick="LightOff()">LightOff</button>
+    <button type="submit" onclick="ShowWeather()">Show Weather</button>
+    <p id="demo"></p>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        function LightOn() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://192.168.80.24:3000/LightOn", false);
+            // xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
 
-    function ShowWeather(){
-        // var xhttp = new XMLHttpRequest();
-        // xhttp.open("GET", "http://192.168.80.24:3000/ShowWeather", false);
-        // //xhttp.setRequestHeader("Content-type", "application/json");
-        // xhttp.send();
-        // document.getElementById("demo").innerHTML = xhttp.response;
-        $.get( "http://192.168.80.24:3000/ShowWeather", function( data ) {
-        var xmlDoc = $.parseXML(data);
-        $( "#demo" ).html( xmlDoc );
-        alert( "Load was performed." );
-});
-    }
+        function LightOff() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "http://192.168.80.24:3000/LightOff", false);
+            // xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+        }
+
+        function ShowWeather() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    document.getElementById("demo").innerHTML =
+                        myObj["coord"].lat;
+                }
+            };
+            xhttp.open("GET", "http://localhost:3000/ShowWeather", true);
+            xhttp.send();
+        }
     </script>
 </body>
 

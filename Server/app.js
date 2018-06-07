@@ -4,9 +4,9 @@ var request = require('request');
 var path = require('path');
 
 var SerialPort = require('serialport');
-var port = new SerialPort('COM6', {
-  baudRate: 9600
-})
+// var port = new SerialPort('COM6', {
+//   baudRate: 9600
+// })
 
 app.get('/LightOn', function(req, res){
 //  port.write('H');
@@ -20,7 +20,7 @@ app.get('/LightOff', function(req, res){
 
 app.get('/ShowWeather', function(req,res){
   var ApiKey = "76454f405c8f38da3c473e8a2d4048f7";
-  request("http://api.openweathermap.org/data/2.5/weather?" + "q=pune&mode=xml&units=imperial&APPID=" + ApiKey, function (error, response, body) {
+  request("http://api.openweathermap.org/data/2.5/weather?" + "q=pune&mode=json&units=imperial&APPID=" + ApiKey, function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.
