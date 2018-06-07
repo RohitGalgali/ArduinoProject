@@ -9,10 +9,7 @@ var port = new SerialPort('COM6', {
 })
 
 app.get('/LightOn', function(req, res){
-<<<<<<< HEAD
-  port.write('H');
-=======
->>>>>>> 65c62451ecd12be2d5ec444df6d3be550e0f7351
+//  port.write('H');
   res.send("LightOn");
 });
 
