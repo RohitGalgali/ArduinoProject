@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
 
     <h2>The Arduino Project</h2>
@@ -9,6 +12,7 @@
     <button type="submit" onclick="LightOn()">LigtOn</button>
     <button type="submit" onclick="LightOff()">LightOff</button>
     <button type="submit" onclick="ShowWeather()">Show Weather</button>
+
     <p id="demo"></p>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
@@ -31,14 +35,25 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var myObj = JSON.parse(this.responseText);
-                    document.getElementById("demo").innerHTML =
-                        myObj["coord"].lat;
+                    document.getElementById("demo").innerHTML = getHTML(myObj);
+                        //myObj["coord"].lat + "<br>" + myObj["coord"].lon;
                 }
             };
             xhttp.open("GET", "http://localhost:3000/ShowWeather", true);
             xhttp.send();
         }
-    </script>
+
+        function getHTML(myObj)
+        {
+            var key="coord";
+           var table = "<table class='table'>";
+           table += "<tr><td>coord</td><td>lat-" + myObj[key].lat + "lon-" + myObj[key].lon +"</td></tr>";
+           table += "<tr><td>coord</td><td>lat-" + myObj[key].lat + "lon-" + myObj[key].lon +"</td></tr>";
+           table += "</table>";
+           return table;
+           
+        }
+    </script>   
 </body>
 
 </html>
