@@ -18,9 +18,10 @@ app.get('/LightOff', function(req, res){
   res.send("LightOff");
 });
 
-app.get('/ShowWeather', function(req,res){
+app.get('/ShowWeather/:id', function(req,res){
   var ApiKey = "76454f405c8f38da3c473e8a2d4048f7";
-  request("http://api.openweathermap.org/data/2.5/weather?" + "q=pune&mode=json&units=imperial&APPID=" + ApiKey, function (error, response, body) {
+  console.log(req.params.id);
+  request("http://api.openweathermap.org/data/2.5/weather?" + "q="+req.params.id+"&mode=json&units=imperial&APPID=" + ApiKey, function (error, response, body) {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.

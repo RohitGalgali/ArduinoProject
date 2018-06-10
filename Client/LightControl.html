@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 
     <h2>The Arduino Project</h2>
@@ -11,9 +13,22 @@
 
     <button type="submit" onclick="LightOn()">LigtOn</button>
     <button type="submit" onclick="LightOff()">LightOff</button>
-    <button type="submit" onclick="ShowWeather()">Show Weather</button>
 
-    <p id="demo"></p>
+    
+        <select id="City">
+            <option value="Pune">Pune</option>
+            <option value="Aurangabad">Aurangabad</option>
+            <option value="Belgaum">Belgaum</option>
+            <option value="Kolhapur">Kolhapur</option>
+        </select>
+        <br>
+        <br>
+        <button type="submit" onclick="ShowWeather()">Show Weather</button>
+  
+    <div>
+        <h3 id="CityName" />
+    </div>
+   <p id="demo"/>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         function LightOn() {
@@ -31,29 +46,35 @@
         }
 
         function ShowWeather() {
+            var item = document.getElementById("City").value;
+            
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var myObj = JSON.parse(this.responseText);
+                    document.getElementById("CityName").innerHTML = myObj["name"];
                     document.getElementById("demo").innerHTML = getHTML(myObj);
-                        //myObj["coord"].lat + "<br>" + myObj["coord"].lon;
+                    //myObj["coord"].lat + "<br>" + myObj["coord"].lon;
                 }
             };
-            xhttp.open("GET", "http://localhost:3000/ShowWeather", true);
+            xhttp.open("GET", "http://localhost:3000/ShowWeather/"+item, true);
             xhttp.send();
         }
 
-        function getHTML(myObj)
-        {
-            var key="coord";
-           var table = "<table class='table'>";
-           table += "<tr><td>coord</td><td>lat-" + myObj[key].lat + "lon-" + myObj[key].lon +"</td></tr>";
-           table += "<tr><td>coord</td><td>lat-" + myObj[key].lat + "lon-" + myObj[key].lon +"</td></tr>";
-           table += "</table>";
-           return table;
-           
+        function getHTML(myObj) {
+            var table = "<table class='table'>";
+            table += "<tr><td>Latitude</td><td>" + myObj["coord"].lat +"</td></tr>";
+            table += "<tr><td>Longitude</td><td>" + myObj["coord"].lon +"</td></tr>";
+            table += "<tr><td>Temperature</td><td>" + myObj["main"].temp +"</td></tr>";
+            table += "<tr><td>Humidity</td><td>" + myObj["main"].humidity +"</td></tr>";
+            table += "<tr><td>Weather</td><td>" + myObj["weather"][0].main +"</td></tr>";
+            table += "<tr><td>Wind Speed</td><td>" + myObj["wind"].speed +"</td></tr>";
+            table += "<tr><td>Wind Direction</td><td>" + myObj["wind"].deg +"</td></tr>";
+            table += "</table>";
+            return table;
+
         }
-    </script>   
+    </script>
 </body>
 
 </html>
